@@ -1,47 +1,75 @@
-// create a new function named getComputerChoice() that returns 'rock', 'paper', or 'scissors' using Math.random().
-function computerPlay() {
-    const choices = ['rock', 'paper', 'scissors'];
-    return choices[Math.floor(Math.random() * choices.length)];
-}
-// create a new function named getPlayerChoice() that prompts the user to enter 'rock', 'paper', or 'scissors' uses prompt() and returns the value entered.
-function getPlayerChoice() {
-    return prompt("Enter 'rock', 'paper', or 'scissors'").toLowerCase();
+// write the logic to get the computer choice for rock, paper, scissors
+
+const getComputerChoice = () => {
+    const randomNumber = Math.floor(Math.random() * 3);
+    switch (randomNumber) {
+        case 0:
+            return 'rock';
+        case 1:
+            return 'paper';
+        case 2:
+            return 'scissors';
+    }
 }
 
-// create two new variables humanScore and computerScore in the global scope and set them to 0.
-let humanScore = 0;
+// write the logic to get human choice for rock, paper, scissors using a window prompt
+const getUserChoice = () => {
+    const userChoice = prompt('Enter your choice: rock, paper or scissors');
+    if (userChoice === 'rock' || userChoice === 'paper' || userChoice === 'scissors') {
+        return userChoice;
+    } else {
+        console.log('Invalid choice');
+    }
+}
+
+
+// declare the players score variables
+let userScore = 0;
 let computerScore = 0;
 
-// create a new function named playRound() and define two parameters playerChoice and computerPlay increment the score of the winner and return a string that declares the winner of the round and a string that declares winner of the round.
-function playRound(playerChoice, computerChoice) {
-    if (playerChoice === computerChoice) {
-        return "It's a tie!";
-    } else if (
-        (playerChoice === 'rock' && computerChoice === 'scissors') ||
-        (playerChoice === 'paper' && computerChoice === 'rock') ||
-        (playerChoice === 'scissors' && computerChoice === 'paper')
-    ) {
-        humanScore++;
-        return `You win! ${playerChoice} beats ${computerChoice}`;
+// write the logic to determine the winner on a single round of rock, paper, scissors
+
+const determineWinner = (userChoice, computerChoice) => {
+    if (userChoice === computerChoice) {
+        return 'It is a tie!';
     }
-    computerScore++;
-    return `You lose! ${computerChoice} beats ${playerChoice}`;
+    if (userChoice === 'rock') {
+        if (computerChoice === 'paper') {
+            return 'Computer wins!';
+        } else {
+            return 'You win!';
+        }
+    }
+    if (userChoice === 'paper') {
+        if (computerChoice === 'scissors') {
+            return 'Computer wins!';
+        } else {
+            return 'You win!';
+        }
+    }
+    if (userChoice === 'scissors') {
+        if (computerChoice === 'rock') {
+            return 'Computer wins!';
+        } else {
+            return 'You win!';
+        }
+    }
 }
 
- // create a new function named playGame() that uses the playRound() function to play a 5 round game that keeps score and reports a winner or loser at the end.
-function playGame() {
+// Create a new function named playGame Move your playRound function and score variables so that they’re declared inside of the new playGame function Play 5 rounds by calling playRound 5 times
+
+
+const playGame = () => {
     for (let i = 0; i < 5; i++) {
-        const playerChoice = getPlayerChoice();
-        const computerChoice = computerPlay();
-        console.log(playRound(playerChoice, computerChoice));
-    }
-    if (humanScore > computerScore) {
-        console.log('You win the game!');
-    } else if (computerScore > humanScore) {
-        console.log('You lose the game!');
-    } else {
-        console.log("It's a tie!");
+        const userChoice = getUserChoice();
+        const computerChoice = getComputerChoice();
+        console.log(`You chose: ${userChoice}`);
+        console.log(`Computer chose: ${computerChoice}`);
+        console.log(determineWinner(userChoice, computerChoice));
     }
 }
+
+playGame();
+
 
 
